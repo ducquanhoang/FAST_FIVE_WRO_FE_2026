@@ -39,6 +39,12 @@
 
 ### 1.1 About the Project
 
+This project of ours is a self‑driving car for the WRO Future Engineers category. The car's a vehicle that can finish the Open Challenge, which asks for three laps on a random track without touching a wall. The car can also complete the Obstacle Challenge, which requires three laps while reading green traffic signs and then doing parallel parking. 
+
+This is the year our team has competed in this category, so much of the project involved learning engineering and programming skills from scratch.
+
+Our robot is built on a custom LEGO Technic + 3D-printed (PLA) chassis, in a rear-wheel differential-drive, Ackermann front-steer configuration, controlled by a LEGO® Education SPIKE™ Prime Hub and a Matrix Robotics M-Vision Cam for onboard image processing. Design priorities, in order, were: a low center of gravity for stability, a lightweight structure to reduce motor strain, and a minimal footprint for maneuverability.
+
 ### 1.2 Robot Images
 
 ---
