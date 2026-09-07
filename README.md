@@ -64,9 +64,28 @@ Reason for Selection
 
 Higher RPM than the stock SPIKE motor, for faster lap times on the flat competition arena.
 Smaller footprint with more mounting-hole positions on the case, giving flexibility in where it sits on the chassis.
-Built-in rotation sensor gives closed-loop feedback for encoder-based distance/angle control (see Enc_cal, MotorB_degree in §5).
+Built-in rotation sensor gives closed-loop feedback for encoder-based distance/angle control.
 
 ### 2.2 Steering
+Motor: LEGO® Technic™ Large Angular Motor + 1:1 gearbox
+
+Specifications
+* Connector: LPF2
+* Voltage range: 5–9V
+* Stall torque: ~40 N·cm with the 1:1 gearbox (team measurement, vs ~25 N·cm for the stock SPIKE Angular Motor)
+* Feedback: integrated rotation/position sensor, used for heading/angle-based turns (`MotorB_Angle`)
+* Reason for Selection :Highest available stall torque among LEGO Powered Up motors, needed to move the Ackermann linkage under load.
+Position feedback lets steering angle be driven and held precisely rather than open-loop.
+
+Ackermann steering:
+When a car turns, the inner and outer front wheels trace circles of different radii, so they need to point at different angles. The inner wheel turns sharper than the outer one. Our steering linkage approximates this relationship so all four wheels roll cleanly with minimal sideways scrubbing, which improves turning accuracy and cuts down on friction losses. 
+
+Why does this happen geometrically?
+For a vehicle to corner without any wheel sliding sideways, every wheel has to travel along a circular arc, and all of those arcs must share one common center point: the instantaneous center of rotation (ICR). A wheel only rolls cleanly when its axle points directly at that center. Because our rear axle is fixed, both rear wheels share the same axis line, which pins the ICR somewhere along the extension of that line. The two front wheels then have to angle themselves so their own axle lines also converge on that same point and since the inner front wheel is physically closer to the ICR, it has to turn through a tighter circle, meaning a larger steering angle than the outer wheel. 
+
+The math behind it: for wheelbase L, track width T, and inner/outer steering angles δᵢ and δₒ, the condition that keeps both front axle lines meeting the rear axle line at one point works out to:
+cot(δₒ) − cot(δᵢ) = T / L
+This relationship isn't linear; the required gap between the two angles grows a lot faster than the angles themselves. At a shallow ~10° steering input the difference between inner and outer angle is only about 1°, but near full lock (~30°) that gap widens to 8° or more. If we'd built a rigid linkage that just kept both wheels parallel, it would look almost correct while driving straight or gently curving, and be badly wrong exactly when precision matters most: sharp corners or a parking maneuver.
 
 ### 2.3 Chassis Design
 
