@@ -8,7 +8,9 @@
 | ...   | Hoàng Đức Quân  | ...               |
 
 ## Table of Contents
-* [Overview](#overview)
+* [1. Overview](#overview)
+  *  [1.1 About the Project](#about-the-project)
+  *  [1.2 Robot Images](#robot-images)
 
 ## Overview
 
