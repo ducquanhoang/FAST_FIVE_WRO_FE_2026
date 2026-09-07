@@ -115,6 +115,21 @@ Since the main chassis's mass and position are essentially locked in (the hub, m
 
 ### 3.1 Power Source
 
+**Battery:** SPIKE Prime rechargeable Li-ion Hub Battery
+
+**Specifications**
+- Type: rechargeable lithium-ion, charged in-hub via micro-USB
+- Capacity: ~2,000–2,100 mAh (per LEGO Education spare-part listings)
+- Working range used in our firmware: 6,900–8,300 mV (see `Battery()` in §5), consistent with a 2-cell Li-ion pack
+
+| Component | Voltage | Current (typical) | Current (peak) | Power (typical) |
+|---|---|---|---|---|
+| Hub | 7.2 V | 1.0 A | 1.5 A | 7.2 W |
+| Camera | 5 V | 0.15 A | 0.3 A | 0.75 W |
+| Ultrasonic ×2 | 5 V | 0.04 A | 0.06 A | 0.2 W |
+| Drive motors ×2 | 7.2 V | 1.0 A | 2 A | 7.2 W |
+| **Total** | | **2.19 A** | **3.86 A** | **15.35 W** |
+
 ### 3.2 Sensors and Camera
 
 ### 3.3 Processing Units
