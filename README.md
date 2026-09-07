@@ -148,15 +148,38 @@ Because everything runs off one Hub battery with no separate motor supply, our p
 
 ### Why each sensor was chosen
 
-**Camera** — Matrix Robotics M-Vision Cam. Connects directly to the hub over Type-C and speaks the SPIKE Prime vision-sensor protocol, so no custom UART implementation or adapter board was needed (unlike an OpenMV Cam H7, a Raspberry Pi camera, or a USB webcam, all of which were considered and rejected for requiring extra hardware/wiring/power).
+**Camera: Matrix Robotics M-Vision Cam (Type-C cable pack)**
 
-**Ultrasonic** — LEGO SPIKE Prime Ultrasonic Sensor (5–200 cm range, ~15° cone). Chosen over HC-SR04 (needs a separate microcontroller), ToF VL53L0X (shorter range, light-sensitive, pricier) and LiDAR (overkill, heavy, expensive) because it plugs directly into the hub.
+*Specifications*
+- Processor: STM32H7, 480 MHz
+- Interface: UART over LPF2 to the SPIKE Prime Hub
+- Operating voltage: 5V (matches Hub output directly)
+- Color space: LAB (in addition to RGB/HSV)
 
-**IMU** — built into the hub. We only read raw `hub.imu.angular_velocity(Axis.Z)`, feeding our own Lagrange-interpolated heading estimator instead of the firmware's `hub.imu.heading()` (see §6). An external IMU (e.g. MPU-6050) would add weight, wiring, and complexity for no benefit.
+*Reason for Selection*
+- Has its own onboard processor, so the Hub doesn't have to run image-processing algorithms itself — this saves battery and keeps the Hub's CPU free for motor/sensor control.
+- Supports LAB color space, which separates brightness (L) from color (A/B). Since the A/B axes stay comparatively stable when the arena's lighting shifts brighter or darker, LAB gives more consistent line/color detection than RGB or HSV under variable lighting.
 
-**Motor encoders** — Used for `DriveDeg()` (dead-reckoning distance), `CalibrateSteer()` (measuring the full steering range so "straight" is a measured fact, not an assumption), and `SteerTo()` (closed-loop steering angle).
+*Tasks:* line following and wall-fill detection (Open Challenge); red/green traffic-sign blob detection, magenta parking-wall detection, and lap-boundary color detection (Obstacle Challenge).
 
-**Color sensor** — Counts the orange/blue corner lines painted on the mat — 12 line events = 4 corners × 3 laps. Kept as a dedicated sensor rather than pulling corner counts out of the camera feed, since the camera is already busy with lane/sign detection.
+**Distance sensing: 2× LEGO® Technic™ Distance Sensor (ultrasonic)**
+
+*Specifications (manufacturer)*
+- Sensing technology: ultrasonic
+- Range: 50–2,000 mm (fast-sensing mode: 50–300 mm)
+- Accuracy: ±1 cm
+- Extras: 4-segment programmable LED "eyes"; detachable LPF2 breakout on the rear
+
+*Tasks:* one sensor on each side reads distance to the left/right walls. At the start of a run, this tells the robot whether the course is Clockwise or Counterclockwise (by checking which side has a wall); during a run, it feeds `Ultra_err()`/`Ultra_steer()` to hold a consistent stand-off from the wall and correct heading error.
+
+**Ground sensing: LEGO® Technic™ Color Sensor**
+
+*Specifications (manufacturer)*
+- Detects 8 discrete colors, plus RGB/HSV values
+- Measures reflected light intensity (for line-following) and ambient light
+- High sample rate for consistent, repeatable readings
+
+*Tasks:* reads ground color for lap-boundary/start-line detection, feeding `Color_read()` and `Color_line_count()` for lap counting.
 
 ### 3.3 Processing Units
 
