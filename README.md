@@ -54,10 +54,10 @@ Design objective: Our chassis is built around 3 goals: stability (keep a low, ba
 Motor: LEGO® Technic™ Large Angular Motor (drives the rear differential)
 ### 2.1 Drive System
 | Photo |Specifications
-Connector: LEGO® Power Functions 2.0 (LPF2)
-Voltage range: 5–9V (SPIKE Hub nominal: 7.2V)
-No-load speed: ~175 RPM (team measurement, vs ~135 RPM for the stock SPIKE-branded Large Angular Motor)
-Feedback: integrated rotation/position sensor Member Name |
+* Connector: LEGO® Power Functions 2.0 (LPF2)
+* Voltage range: 5–9V (SPIKE Hub nominal: 7.2V)
+* No-load speed: ~175 RPM (team measurement, vs ~135 RPM for the stock SPIKE-branded Large Angular Motor)
+* Feedback: integrated rotation/position sensor|
 
 Reason for Selection
 
