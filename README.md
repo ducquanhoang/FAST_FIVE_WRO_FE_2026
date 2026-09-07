@@ -181,11 +181,44 @@ Because everything runs off one Hub battery with no separate motor supply, our p
 
 *Tasks:* reads ground color for lap-boundary/start-line detection, feeding `Color_read()` and `Color_line_count()` for lap counting.
 
-### 3.3 Processing Units
+## 3.3 Processing Units
 
-### 3.4 Port / Wiring Map
+**Controller:** LEGO® Education SPIKE™ Prime Hub
 
-### 3.5 Power Consumption
+| | Mindstorms EV3 | SPIKE Prime |
+|---|---|---|
+| CPU Clock Speed | 300 MHz | 100 MHz |
+| Weight (incl. battery) | 385 g | ~200 g |
+| Volume | 0.388 L | 0.158 L |
+
+**Reason for Selection**
+
+We chose SPIKE Prime over EV3 even though its CPU clock speed is lower, because it's roughly half the weight and less than half the volume of the EV3 Hub — both of which matter more for our low-CG, lightweight design goals than raw clock speed, given that the M-Vision Cam (not the Hub) does the heavy image-processing work.
+
+## 3.4 Port / Wiring Map
+
+Everything connects to the Hub over standard LEGO LPF2 cables — no custom wiring harness or PCB is needed. Current assignments (from `FE_Functions.py`):
+
+| Hub Port | Device | Role |
+|---|---|---|
+| A | Matrix M-Vision Cam | Line / wall / traffic-sign detection |
+| B | Technic Large Motor | Drive (rear differential) |
+| C | Technic XL Motor | Steering (Ackermann linkage) |
+| D | Distance Sensor (right) | Right-wall distance |
+| E | Color Sensor | Ground color / lap detection |
+| F | Distance Sensor (left) | Left-wall distance |
+
+## 3.5 Power Consumption
+
+All components are powered from the SPIKE Prime Hub's own 7.3 V Li-Ion battery.
+
+| Component | Voltage | Current (typical) | Current (peak) | Power (typical) |
+|---|---|---|---|---|
+| SPIKE Prime Hub | 7.2 V | 1.0 A | 1.5 A | 7.2 W |
+| M-Vision Camera | 5 V (Type-C) | 0.15 A | 0.3 A | 0.75 W |
+| Ultrasonic ×2 | 5 V (from hub) | 0.04 A | 0.06 A | 0.2 W |
+| Drive motors ×2 | 7.2 V | 1.0 A | 2.0 A | 7.2 W |
+| **Total** | | **2.19 A** | **3.86 A** | **15.35 W** |
 
 ---
 
