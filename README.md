@@ -138,6 +138,25 @@ Our firmware reads `hub.battery.voltage()`, clamps it to the 6,900–8,300 mV wo
 
 Because everything runs off one Hub battery with no separate motor supply, our power architecture is much simpler than a Raspberry Pi-class system (no MOSFET power-switching, no DC-DC boost converter, no separate motor driver IC) - the tradeoff is that we're bound to whatever voltage/current the Hub itself can deliver.
 ### 3.2 Sensors and Camera
+| Sensor | Model | Qty | Purpose |
+|---|---|---|---|
+| Camera | Matrix Robotics M-Vision Cam (Type-C) | 1 | Lane/sign detection, corner detection |
+| Ultrasonic | LEGO SPIKE Prime Ultrasonic Sensor | 2 | Left/right wall distance |
+| IMU | Built into SPIKE Prime Hub | 1 | Angular velocity for heading estimation |
+| Motor encoders | Built into SPIKE Prime motor | 2 | Distance measurement, steering calibration |
+| Color/line sensor | SPIKE Prime color/distance sensor | 1 | Corner line (color) detection |
+
+### Why each sensor was chosen
+
+**Camera** — Matrix Robotics M-Vision Cam. Connects directly to the hub over Type-C and speaks the SPIKE Prime vision-sensor protocol, so no custom UART implementation or adapter board was needed (unlike an OpenMV Cam H7, a Raspberry Pi camera, or a USB webcam, all of which were considered and rejected for requiring extra hardware/wiring/power).
+
+**Ultrasonic** — LEGO SPIKE Prime Ultrasonic Sensor (5–200 cm range, ~15° cone). Chosen over HC-SR04 (needs a separate microcontroller), ToF VL53L0X (shorter range, light-sensitive, pricier) and LiDAR (overkill, heavy, expensive) because it plugs directly into the hub.
+
+**IMU** — built into the hub. We only read raw `hub.imu.angular_velocity(Axis.Z)`, feeding our own Lagrange-interpolated heading estimator instead of the firmware's `hub.imu.heading()` (see §6). An external IMU (e.g. MPU-6050) would add weight, wiring, and complexity for no benefit.
+
+**Motor encoders** — Used for `DriveDeg()` (dead-reckoning distance), `CalibrateSteer()` (measuring the full steering range so "straight" is a measured fact, not an assumption), and `SteerTo()` (closed-loop steering angle).
+
+**Color sensor** — Counts the orange/blue corner lines painted on the mat — 12 line events = 4 corners × 3 laps. Kept as a dedicated sensor rather than pulling corner counts out of the camera feed, since the camera is already busy with lane/sign detection.
 
 ### 3.3 Processing Units
 
