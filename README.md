@@ -87,6 +87,13 @@ The math behind it: for wheelbase L, track width T, and inner/outer steering ang
 cot(δₒ) − cot(δᵢ) = T / L
 This relationship isn't linear; the required gap between the two angles grows a lot faster than the angles themselves. At a shallow ~10° steering input the difference between inner and outer angle is only about 1°, but near full lock (~30°) that gap widens to 8° or more. If we'd built a rigid linkage that just kept both wheels parallel, it would look almost correct while driving straight or gently curving, and be badly wrong exactly when precision matters most: sharp corners or a parking maneuver.
 
+Wheels: 49.5 mm SPIKE wheels (front)
+
+Small diameter for agility and quick direction changes at the steered wheels.
+
+Considerations
+
+Even with the 1:1 gearbox, torque at the steering linkage was tighter than expected after the first v2 build - a candidate area to revisit (e.g. a different gear ratio or linkage geometry) if we find the robot under-steering at speed.
 ### 2.3 Chassis Design
 
 ---
