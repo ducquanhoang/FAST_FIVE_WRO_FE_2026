@@ -50,10 +50,19 @@ Our robot is built on a custom LEGO Technic + 3D-printed (PLA) chassis, in a rea
 ---
 
 ## 2. Mobility management
-
-### 2.1 Drive System
 Design objective: Our chassis is built around 3 goals: stability (keep a low, balanced center of gravity so the robot doesn’t tip or wobble to the side during hard turns or sudden acceleration, and a steady drive base for the camera), efficiency (a lightweight structure so the drive motor isn't fighting excess mass), and maneuverability (a compact footprint that can navigate tight corners and obstacles without sacrificing control).
+Motor: LEGO® Technic™ Large Angular Motor (drives the rear differential)
+### 2.1 Drive System
+Specifications
+Connector: LEGO® Power Functions 2.0 (LPF2)
+Voltage range: 5–9V (SPIKE Hub nominal: 7.2V)
+No-load speed: ~175 RPM (team measurement, vs ~135 RPM for the stock SPIKE-branded Large Angular Motor)
+Feedback: integrated rotation/position sensor
+Reason for Selection
 
+Higher RPM than the stock SPIKE motor, for faster lap times on the flat competition arena.
+Smaller footprint with more mounting-hole positions on the case, giving flexibility in where it sits on the chassis.
+Built-in rotation sensor gives closed-loop feedback for encoder-based distance/angle control (see Enc_cal, MotorB_degree in §5).
 
 ### 2.2 Steering
 
