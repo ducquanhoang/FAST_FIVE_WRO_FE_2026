@@ -96,7 +96,20 @@ Considerations
 Even with the 1:1 gearbox, torque at the steering linkage was tighter than expected after the first v2 build - a candidate area to revisit (e.g. a different gear ratio or linkage geometry) if we find the robot under-steering at speed.
 ### 2.3 Chassis Design
 
----
+Main chassis: LEGO SPIKE Prime Hub, drive and steering motors, ultrasonic sensors, line sensor, structural connectors, and wheel assemblies. 
+Rear camera assembly: A structure to hold the Matrix Camera M-Vision AI Cam. 
+
+Why We Put the Camera to the Rear: 
+Raising the camera and pushing it toward the rear gives the vision system a much wider field of view, which lets the robot spot the wall and obstacles earlier and more consistently. The trade-off is that a tall mast sitting up high introduces a real risk of tipping the robot, so we had to design the robot so it doesn't tip or wobble to the side during hard turns or sudden acceleration.
+
+Keeping the Elevated Camera From Tipping the Robot: 
+To make sure the taller rear mast wouldn't make the robot unstable, we ran a basic static-moment analysis using the rear wheels' contact line with the ground as the pivot point. We compared two moments: 
+M₁ - the restoring moment from the main chassis (its mass × its distance from the pivot)
+M₂ - the overturning moment from the rear mast/counterweight assembly (its mass × its distance from the pivot)
+The robot will stay upright as long as M₁ ≥ M₂, i.e., as long as the main chassis's moment is greater than or equal to the rear assembly's moment. 
+
+Since the main chassis's mass and position are essentially locked in (the hub, motors, and sensors don't move), the only variable we could actually control was the rear assembly. So we minimized both its mass and its distance from the pivot: the camera mount itself, which accounts for most of the rear assembly's weight, sits as close to the pivot as the design allows.
+
 
 ## 3. Power and Sense Management
 
