@@ -129,7 +129,13 @@ Since the main chassis's mass and position are essentially locked in (the hub, m
 | Ultrasonic ×2 | 5 V | 0.04 A | 0.06 A | 0.2 W |
 | Drive motors ×2 | 7.2 V | 1.0 A | 2 A | 7.2 W |
 | **Total** | | **2.19 A** | **3.86 A** | **15.35 W** |
+The battery powers the SPIKE Prime Hub directly; the Hub in turn supplies all motors and sensors over their LPF2 leads, and the M-Vision Cam over its dedicated 5V cable - no separate step-up/step-down conversion is needed anywhere in the system, since the camera's 5V input matches the Hub's output.
 
+Our firmware reads `hub.battery.voltage()`, clamps it to the 6,900–8,300 mV working range, and converts it to a 0–100% estimate so we can catch a low-charge robot before a run.
+
+**Considerations**
+
+Because everything runs off one Hub battery with no separate motor supply, our power architecture is much simpler than a Raspberry Pi-class system (no MOSFET power-switching, no DC-DC boost converter, no separate motor driver IC) - the tradeoff is that we're bound to whatever voltage/current the Hub itself can deliver.
 ### 3.2 Sensors and Camera
 
 ### 3.3 Processing Units
