@@ -70,7 +70,9 @@ Built-in rotation sensor gives closed-loop feedback for encoder-based distance/a
 
 ### 2.2 Steering
 Motor: LEGO® Technic™ Large Angular Motor + 1:1 gearbox
+
 <img src="Model/LEGO® Technic™ Large Angular Motor (1).png" width="200">
+
 Specifications
 * Connector: LPF2
 * Voltage range: 5–9V
