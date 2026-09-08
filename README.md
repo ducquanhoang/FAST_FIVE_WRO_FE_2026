@@ -393,6 +393,20 @@ repo-root
 
 ## 7. Building Instructions
 
+All the code used in the robot can be found [here](scr)
+
+Step 0 - Print the 3D parts: print all custom PLA parts listed in §7.
+
+Step 1 - Assemble the steering system: front wheel linkages → Ackermann/reverse-Ackermann linkage → mount to chassis → attach XL steering motor → secure front wheels.Using File of the Chassis can be found here
+
+Step 2 - Assemble the drivetrain: rear wheel axles → differential → Large drive motor → secure to chassis → attach rear wheels.
+
+Step 3 - Mount electronics: SPIKE Prime Hub placement → M-Vision Cam mounting/aiming → Distance Sensors (left/right) → Color Sensor → route and connect all LPF2 cables per the port map in §3.4.
+
+Step 4 - Upload the software: follow §5.3 to flash the Hub and camera, then power on and test.
+
+<p align="right"><a href="#top">Back To Top</a></p>
+
 ---
 
 ## 8. Future Improvements
@@ -412,3 +426,5 @@ repo-root
 
 - Rigid custom 3D-printed chassis to reduce flex and improve steering precision.
 - Higher-torque motors for more consistent parking.
+
+<p align="right"><a href="#top">Back To Top</a></p>
