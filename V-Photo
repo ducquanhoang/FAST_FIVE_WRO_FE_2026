@@ -1,0 +1,5 @@
+mkdir v-photos
+cp ~/Desktop/robot_photos/*.jpg v-photos/
+git add v-photos/
+git commit -m "Add robot photos"
+git push
