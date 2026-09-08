@@ -54,6 +54,7 @@ Our robot is built on a custom LEGO Technic + 3D-printed (PLA) chassis, in a rea
 Design objective: Our chassis is built around 3 goals: stability (keep a low, balanced center of gravity so the robot doesn’t tip or wobble to the side during hard turns or sudden acceleration, and a steady drive base for the camera), efficiency (a lightweight structure so the drive motor isn't fighting excess mass), and maneuverability (a compact footprint that can navigate tight corners and obstacles without sacrificing control).
 Motor: LEGO® Technic™ Large Angular Motor (drives the rear differential)
 ### 2.1 Drive System
+![Front View](Model/FAST 5- Future Engineers main designs.io)
 
 Specifications
 * Connector: LEGO® Power Functions 2.0 (LPF2)
