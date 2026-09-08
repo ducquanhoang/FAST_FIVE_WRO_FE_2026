@@ -81,6 +81,8 @@ Specifications
 * Reason for Selection :Highest available stall torque among LEGO Powered Up motors, needed to move the Ackermann linkage under load.
 Position feedback lets steering angle be driven and held precisely rather than open-loop.
 
+<img src="schemes/Ackerman_diagram.png" width="800">
+
 Ackermann steering:
 When a car turns, the inner and outer front wheels trace circles of different radii, so they need to point at different angles. The inner wheel turns sharper than the outer one. Our steering linkage approximates this relationship so all four wheels roll cleanly with minimal sideways scrubbing, which improves turning accuracy and cuts down on friction losses. 
 
