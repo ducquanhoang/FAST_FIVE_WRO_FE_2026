@@ -112,6 +112,8 @@ Considerations
 Even with the 1:1 gearbox, torque at the steering linkage was tighter than expected after the first v2 build - a candidate area to revisit (e.g. a different gear ratio or linkage geometry) if we find the robot under-steering at speed.
 ### 2.3 Chassis Design
 
+<img src="Model/Chassis_Design.png" width="500">
+
 Main chassis: LEGO SPIKE Prime Hub, drive and steering motors, ultrasonic sensors, line sensor, structural connectors, and wheel assemblies. 
 Rear camera assembly: A structure to hold the Matrix Camera M-Vision AI Cam. 
 
