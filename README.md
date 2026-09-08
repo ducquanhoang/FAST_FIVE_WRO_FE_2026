@@ -225,11 +225,67 @@ All components are powered from the SPIKE Prime Hub's own 7.3 V Li-Ion battery.
 
 ## 4. Obstacle Management
 
+The competition has two runs:
+- **Open Challenge:** three laps around a randomly-sized field, in a randomly-chosen direction, without touching a wall.
+- **Obstacle Challenge:** three laps while reading traffic signs - pass a red sign on its right, a green sign on its left - then parallel-park in a marked bay.
+
+We split our strategy into the same three phases:
+
 ### 4.1 Open Challenge
+
+Two boxes are drawn on the left and right of the camera frame. Pixels within a tuned RGB threshold count as "black," and the robot centers itself on the track by comparing the black-fill ratio of the two boxes, correcting with **PID** steering. A box at the center of the frame watches for the orange/blue start-line color; whichever color it sees first tells the robot whether the course is Clockwise or Counterclockwise. Two small boxes at the bottom of the frame catch the case where the robot gets close enough to a wall that the main boxes lose the line, switching to a "priority correction" mode driven by those bottom boxes instead - this stops the robot from hugging the wall or losing track when the front sensors go unreliable. A tunable default wall-hugging offset (e.g. +30°) keeps the robot tracking tightly and minimizes lap time.
+
+<details>
+<summary><b>Click here to show Open Challenge code excerpt</b></summary>
+
+```python
+Add = 200 if Cam_val[0]>10 and Cam_val[1]>10 else 0
+while GetColor() == 0:
+    steering(0)
+Drive.reset_angle(0)
+while abs(Drive.angle()) < Add:
+    steering(0)
+
+if GetColor() == 1:
+    ColorCondition = 1
+    Plus = -30
+else:
+    ColorCondition = -1
+    Plus = 40
+
+for i in range(11):
+    while GetColor() != ColorCondition:
+        SteerCamOpen(ColorCondition, Plus)
+    while GetColor() == ColorCondition:
+        SteerCamOpen(ColorCondition, Plus)
+Drive.reset_angle(0)
+while abs(Drive.angle()) < 2000:
+    SteerCamOpen(ColorCondition, Plus)
+```
+
+</details>
 
 ### 4.2 Obstacle Challenge
 
+Sign avoidance runs as a four-state routine on the Hub, layered on the same wall-following and corner-counting loop as the Open Challenge (`Ultra_err()` for wall stand-off, `Steer_err()` for the corner-count-based turn target). Each cycle the camera reports an x/y position and color for the nearest sign, plus the percentage of black track surface in view; the state machine below decides what to do with that reading.
+
+**Scanning:** with no sign in view, the robot drives the same baseline heading as the Open Challenge, just with a wider 90° corner cut (`Steer_err(90)` vs. `Steer_err(75)`) to leave more room to spot and clear signs. The moment a sign appears, it switches to tracking it.
+
+**Approaching:** the robot steers straight at the sign using its camera x-offset from center, holding the last good heading if the camera briefly loses it. Once the sign fills enough of the frame (`y >= 100`), the robot commits to the avoidance swing.
+
+**Avoiding:** the target heading swings about 60° off the approach line, the side set by the sign's color, matching the red-right / green-left rule, clamped to within 85° of the current baseline heading so it can't over-rotate. It holds that swing until the track surface reappears (`black` fill above 60%), or gives up and returns to Scanning if 250 encoder-degrees pass without finding it.
+
+**Settling:** for a short window after clearing a sign, until `black` fill passes 70% or 200 more encoder-degrees pass, the robot ignores new sign readings, so it doesn't immediately re-trigger on the one it just passed.
+
+Drive power is also capped lower than the Open Challenge (30–50% vs. 70–100%), and steering runs through `SteerObs()`, a gentler, ±40°-clamped controller — instead of `Steer()`, trading speed for the precision needed to line up on each sign.
+
+*(This section previously described a per-frame PD/blob-width design; it's been rewritten to match the state-machine approach now in `main_obstacle()`.)*
+
 ### 4.3 Parallel Parking
+
+After completing 3 laps, the robot aligns to the wall using the same wall-following method as above, then drives until the magenta parking-lot color crosses a specific X-coordinate in the camera frame. From that trigger point, a **pre-programmed, encoder-based maneuver sequence** completes the park - deliberately not a fully vision-guided park, since the travel distance involved is short enough that encoder error stays within an acceptable margin, and it avoids depending on vision precision we haven't yet fully validated for this sub-task.
+
+<p align="right"><a href="#top">Back To Top</a></p>
 
 ---
 
@@ -237,13 +293,82 @@ All components are powered from the SPIKE Prime Hub's own 7.3 V Li-Ion battery.
 
 ### 5.1 Code Overview
 
+- **Language/runtime:** Pybricks (MicroPython) on the SPIKE Prime Hub.
+- **Vision:** OpenMV IDE on the M-Vision Cam, using the `LPF2` import so it can talk to the Hub.
+- **Custom libraries:** `MXLineT_Lib` (camera/line-tracker interface).
+
 ### 5.2 Code Structure
 
+```txt
+repo-root
+└─ src
+   ├─ Camera
+   │  ├─ LPF2.py            # External library (depends on libcamera)
+   │  ├─ main.py
+   ├─ Controller       
+   │  ├─ FE_Functions.py 
+   │  ├─ FE_Portview.py               
+   │  ├─ FE_RUN.py          # Executable for both open and obstacle challenges         
+```
+
+**Key function groups in `FE_Functions.py`:**
+
+| Group | Functions | Role |
+|---|---|---|
+| Utility | `NumberLimit_Clamp()`, `Enc_cal()`, `dist_cal()` | Clamp a value to a safe range; convert cm → motor degrees and back |
+| Power | `Battery()` | Reads Hub voltage, clamps 6,900–8,300 mV, returns battery % |
+| Color / laps | `Color_read()`, `Color_line_count()` | Classify raw RGB as a line color; count line crossings for laps |
+| Wall following | `Ultra_err()` | Compute a steering correction from the two ultrasonic distance sensors |
+| Corner targeting | `Steer_err()` | Turn the line-crossing count into a target turn angle (90° every two crossings, plus a tunable per-corner cut) |
+| Heading reference | `Theta()`, `Compass()`, `ReTheta()` | Gyro (IMU)-based heading: signed heading, raw 0–360° compass, and signed error to a target heading |
+| Drive/steer profiles | `MotorB_On/Stop/Time/Degs/degree/smooth/3step/dist/...`, `MotorB_Angle` | Inherited motor-profile helpers (accel/decel smoothing, 3-stage speed profiles, gyro turn-to-angle), built around a separate `motorB`/`motorC` pair rather than the `move`/`steer` objects the run loops below actually drive — not called by either challenge's main loop in `FE_RUN.py` |
+
+> **Fixed:** the old `Ultra_steer()` syntax gap (`90*Line_count // 2 Line_count % 2 * 45 ...`, missing an operator between `//2` and `Line_count`) is resolved in the current code. The function is now `Steer_err(corner)`, reading `90*(Line_count // 2) + (Line_count % 2) * corner` ,correctly parenthesized, with `corner` passed in per call (`75` for the Open Challenge, `90` for the Obstacle Challenge) instead of a hard-coded `45`.
+
+**Key functions in `FE_RUN.py`:**
+
+| Function | Role |
+|---|---|
+| `Steer(angle)` | Steering controller (proportional + accumulated error) used in the Open Challenge |
+| `SteerObs(angle)` | Gentler, ±40°-clamped steering controller used in the Obstacle Challenge (see 4.2) |
+| `portview()` | Bench-test loop — prints battery, encoder, gyro, distance-sensor, color, and camera readings every 500 ms |
+| `main_open()` | Open Challenge entry point |
+| `main_obstacle()` | Obstacle Challenge entry point (see 4.2) |
+
 ### 5.3 Upload / Run Instructions
+
+1. Install the [Pybricks firmware](https://code.pybricks.com) onto the SPIKE Prime Hub (one-time step, via the Pybricks web IDE over USB or Bluetooth).
+2. Connect to the Hub from the Pybricks IDE (or VS Code with the Pybricks extension) and open `FE_Functions.py` plus the relevant challenge script.
+3. Flash/run the program on the Hub.
+4. Separately, open the corresponding vision script in **OpenMV IDE**, connect to the M-Vision Cam over its Type-C cable, and run/save it to the camera so it starts automatically on power-up.
+5. Power on the robot - Hub and camera boot together once battery power is applied.
+
+<p align="right"><a href="#top">Back To Top</a></p>
 
 ---
 
 ## 6. List of Components
+
+| Component | Quantity | Source / Reference |
+|---|---|---|
+| LEGO® Education SPIKE™ Prime Hub | 1 | LEGO Education |
+| SPIKE Prime rechargeable Hub battery | 1 | [LEGO Education 45610](https://education.lego.com/en-us/products/lego-technic-large-hub-battery/45610/) |
+| Technic™ Powered Up Large Motor (drive + steering) | 2 | [LEGO 88013](https://education.lego.com/en-us/products/lego-technic-large-angular-motor/45602/) |
+| LEGO differential gear | 1 | LEGO Technic |
+| 62.3 mm Technic tires (rear) | 2 | LEGO Technic |
+| 49.5 mm SPIKE wheels (front) | 2 | LEGO SPIKE Prime |
+| Matrix Robotics M-Vision Cam + Type-C cable pack | 1 | Matrix Robotics |
+| LEGO® Technic™ Distance Sensor (ultrasonic) | 2 | [LEGO Education 45604](https://education.lego.com/en-us/products/lego-technic-distance-sensor/45604/) |
+| LEGO® Technic™ Color Sensor | 1 | [LEGO Education 45605](https://education.lego.com/en-us/products/lego-technic-color-sensor/45605/) |
+| Custom 3D-printed PLA parts (mounts, brackets) | Various | 3D-printed in-house |
+| LEGO Technic structural elements | Various | LEGO Technic |
+
+**Printers Used:**
+
+- [Bambu Lab P1S](https://asia.store.bambulab.com/products/p1s?p=W3sicHJvcGVydHlLZXkiOiJWYXJpYW50IiwicHJvcGVydHlWYWx1ZSI6IlAxUyBDb21ibyJ9LHsicHJvcGVydHlLZXkiOiJTaGlwIHRvIiwicHJvcGVydHlWYWx1ZSI6IiJ9LHsicHJvcGVydHlLZXkiOiJPcHRpb24iLCJwcm9wZXJ0eVZhbHVlIjoiQ29tYm8gd2l0aCBIdWIoU2hpcCBTZXBhcmF0ZWx5KSJ9XQ%3D%3D)
+
+<p align="right"><a href="#top">Back To Top</a></p>
+
 
 ---
 
