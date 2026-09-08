@@ -5,7 +5,7 @@
 ### Our team
 | Photo | Member Name     | Role & Experience |
 | ----- | --------------- | ----------------- |
-|<img src="t-photos/tuyen1.jpg" width="200">| Nguyễn Tự Tuyển | ...               |
+|<img src="t-photos/tuyen1.jpg" width="200">| Nguyễn Tự Tuyển |Responsible for documenting the team's development process and photography|
 | ...   | Hoàng Đức Quân  | ...               |
 
 ## Table of Contents
