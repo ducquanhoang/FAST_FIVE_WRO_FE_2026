@@ -5,8 +5,8 @@
 ### Our team
 | Photo | Member Name     | Role & Experience |
 | ----- | --------------- | ----------------- |
-|<img src="t-photos/tuyen1.jpg" width="350">| Nguyễn Tự Tuyển | - Role: Responsible for documenting the team's development process and photography - Experience: First time competing in an official WRO event |
-|<img src="t-photos/20260908_160004.jpg" width="350">| Hoàng Đức Quân  | - Role: Documenting part of the team's development, designing, building and programming the robot - Experience: Previously competed in WRO B2 category 2026 year at hanoi city round, south korean open round, and vietnam national round |
+|<img src="t-photos/tuyen1.jpg" width="400">| Nguyễn Tự Tuyển | Role: Responsible for documenting the team's development process and photography. Experience: First time competing in an official WRO event |
+|<img src="t-photos/20260908_160004.jpg" width="400">| Hoàng Đức Quân  | Role: Documenting part of the team's development, designing, building and programming the robot. Experience: Previously competed in WRO B2 category 2026 year at hanoi city round, south korean open round, and vietnam national round |
 
 ## Table of Contents
 - [1. Overview](#1-overview)
