@@ -32,7 +32,7 @@
   - [5.2 Code Structure](#52-code-structure)
   - [5.3 Upload / Run Instructions](#53-upload--run-instructions)
 - [6. List of Components](#6-list-of-components)
-- [7. 3D Model Files](#7-3d-model-files)
+- [7. Future Improvements](#7-Future-Improvements)
 - [8. Building Instructions](#8-building-instructions)
 
 ---
@@ -389,18 +389,24 @@ repo-root
 
 ---
 
-## 7. 3D Model Files
+## 7. Future Improvements
 
+**Software & reliability**
 
-We used SLDPRT to design the 3D models to finish the robot.
+**Software & reliability**
 
-- [Ultrasonic sensor adapter](Model/Ultrasonic_sensor_adapter.SLDPRT)
-- [Cam Holder](Model/Cam_Holder.SLDPRT)
+- Dual-controller architecture (Raspberry Pi for vision + Arduino for real-time motor control) for parallel processing and deterministic timing.
+- Lightweight neural-network vision to replace hand-tuned color thresholds.
+- External 9-axis IMU for better drift correction.
+- Robust UART communication: packet retransmission, timestamps, command validation.
+- Expanded watchdogs (ultrasonic/IMU/encoder staleness + auto re-calibration) and crash detection/recovery via accelerometer spikes.
+- Automatic retry logic for sensor failures/timeouts.
+- Profiling and optimizing critical loops; centralized tunable-parameter config file.
+- Structured, real-time logging; backup wall-following/waypoint navigation modes.
 
-<div align="right">
+**Hardware**
 
-[Back To Top](#top)
-
-</div>
+- Rigid custom 3D-printed chassis to reduce flex and improve steering precision.
+- Higher-torque motors for more consistent parking.
 
 ## 8. Building Instructions
