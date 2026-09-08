@@ -51,6 +51,19 @@ Our robot is built on a custom LEGO Technic + 3D-printed (PLA) chassis, in a rea
 
 ### 1.2 Robot Images
 
+<table>
+  <tr>
+    <td align="center"><b>Front View</b><br><img src="v-photos/Front.jpg" width="250"></td>
+    <td align="center"><b>Left View</b><br><img src="v-photos/Left.jpg" width="250"></td>
+    <td align="center"><b>Right View</b><br><img src="v-photos/Right.jpg" width="250"></td>
+  </tr>
+  <tr>
+    <td align="center"><b>Back View</b><br><img src="v-photos/Back.jpg" width="250"></td>
+    <td align="center"><b>Top View</b><br><img src="v-photos/Top.jpg" width="250"></td>
+    <td align="center"><b>Bottom View</b><br><img src="v-photos/Under.jpg" width="250"></td>
+  </tr>
+</table>
+
 ### 1.3 Repository Content
 | Folder | Content |
 | ------ | ------- |
