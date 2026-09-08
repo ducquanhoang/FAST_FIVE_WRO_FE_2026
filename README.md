@@ -5,7 +5,7 @@
 ### Our team
 | Photo | Member Name     | Role & Experience |
 | ----- | --------------- | ----------------- |
-|<img src="t-photos/tuyen1.jpg" width="400">| Nguyễn Tự Tuyển | ...               |
+|<img src="t-photos/tuyen1.jpg" width="200">| Nguyễn Tự Tuyển | ...               |
 | ...   | Hoàng Đức Quân  | ...               |
 
 ## Table of Contents
