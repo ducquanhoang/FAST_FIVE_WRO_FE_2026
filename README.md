@@ -34,8 +34,8 @@
 - [6. List of Components](#6-list-of-components)
 - [7. Building Instructions](#7-building-instructions)
 - [8. Future Improvements](#8-future-improvements)
-  - [8.1 Software](#81-software)
-  - [8.2 Hardware](#82-hardward)
+  - [8.1 Software](#81-software-&-reliability)
+  - [8.2 Hardware](#82-hardware)
 
 ---
 
