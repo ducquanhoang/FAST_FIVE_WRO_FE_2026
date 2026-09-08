@@ -323,6 +323,8 @@ After completing 3 laps, the robot aligns to the wall using the same wall-follow
 
 ## 5. Source Code
 
+All the code used in the robot can be found [here](scr)
+
 ### 5.1 Code Overview
 
 - **Language/runtime:** Pybricks (MicroPython) on the SPIKE Prime Hub.
