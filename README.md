@@ -1,6 +1,6 @@
 # Name_WRO_FE_2026
 ## WRO Future Engineers - Robotics Project Documentation
-##Hello! We are Team Fast 5.
+## HELLO WE ARE TEAM FAST FIVE
 
 ### Our team
 | Photo | Member Name     | Role & Experience |
