@@ -58,7 +58,7 @@ Our robot is built on a custom LEGO Technic + 3D-printed (PLA) chassis, in a rea
 | [v-photos](v-photos) | photos of the vehicle, including view from all 6 directions |
 | [source code](source-code) | python source code for the vehicle's camera and controller |
 | [schemes](schemes) | diagrams used |
-| [Model](model) | Photo of component models and 3D model for ultra_adapter and cam_holder |
+| [Model](Model) | Photo of component models and 3D model for ultra_adapter and cam_holder |
 
 ---
 
