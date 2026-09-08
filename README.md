@@ -12,6 +12,7 @@
 - [1. Overview](#1-overview)
   - [1.1 About the Project](#11-about-the-project)
   - [1.2 Robot Images](#12-robot-images)
+  - [1.3 Repository Content](#13-repository-content)
 - [2. Mobility Management](#2-mobility-management)
   - [2.1 Drive System](#21-drive-system)
   - [2.2 Steering](#22-steering)
@@ -47,6 +48,13 @@ This is the year our team has competed in this category, so much of the project 
 Our robot is built on a custom LEGO Technic + 3D-printed (PLA) chassis, in a rear-wheel differential-drive, Ackermann front-steer configuration, controlled by a LEGO® Education SPIKE™ Prime Hub and a Matrix Robotics M-Vision Cam for onboard image processing. Design priorities, in order, were: a low center of gravity for stability, a lightweight structure to reduce motor strain, and a minimal footprint for maneuverability.
 
 ### 1.2 Robot Images
+
+### 1.3 Repository Content
+| Folder | Content |
+| ------ | ------- |
+| [t-photos](t-photos) | team photos |
+| [v-photos](v-photos) | photos of the vehicle, including view from all 6 directions |
+| [source code](source-code) | python source code for the vehicle's camera and controller |
 
 ---
 
