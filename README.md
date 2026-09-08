@@ -391,6 +391,16 @@ repo-root
 
 ## 7. 3D Model Files
 
----
+
+We used SLDPRT to design the 3D models to finish the robot.
+
+- [Ultrasonic sensor adapter](Model/Ultrasonic_sensor_adapter.SLDPRT)
+- [Cam Holder](Model/Cam_Holder.SLDPRT)
+
+<div align="right">
+
+[Back To Top](#top)
+
+</div>
 
 ## 8. Building Instructions
