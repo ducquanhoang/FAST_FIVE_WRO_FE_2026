@@ -34,7 +34,7 @@
 - [6. List of Components](#6-list-of-components)
 - [7. Building Instructions](#7-building-instructions)
 - [8. Future Improvements](#8-future-improvements)
-  - [8.1 Software](#81-software-&-reliability)
+  - [8.1 Software](#81-software-and-reliability)
   - [8.2 Hardware](#82-hardware)
 
 ---
@@ -426,7 +426,7 @@ Step 4 - Upload the software: follow §5.3 to flash the Hub and camera, then pow
 
 ## 8. Future Improvements
 
-### 8.1 Software & reliability
+### 8.1 Software and reliability
 
 - Dual-controller architecture (Raspberry Pi for vision + Arduino for real-time motor control) for parallel processing and deterministic timing.
 - Lightweight neural-network vision to replace hand-tuned color thresholds.
