@@ -32,7 +32,9 @@
   - [5.2 Code Structure](#52-code-structure)
   - [5.3 Upload / Run Instructions](#53-upload--run-instructions)
 - [6. List of Components](#6-list-of-components)
-- [7. Future Improvements](#7-Future-Improvements)
+- [9. Future Improvements](#9-future-improvements)
+  - [9.1 Software](#91-software)
+  - [9.2 Hardware](#92-hardward)
 - [8. Building Instructions](#8-building-instructions)
 
 ---
@@ -389,11 +391,9 @@ repo-root
 
 ---
 
-## 7. Future Improvements
+## 9. Future Improvements
 
-**Software & reliability**
-
-**Software & reliability**
+### 9.1 Software & reliability
 
 - Dual-controller architecture (Raspberry Pi for vision + Arduino for real-time motor control) for parallel processing and deterministic timing.
 - Lightweight neural-network vision to replace hand-tuned color thresholds.
@@ -404,7 +404,7 @@ repo-root
 - Profiling and optimizing critical loops; centralized tunable-parameter config file.
 - Structured, real-time logging; backup wall-following/waypoint navigation modes.
 
-**Hardware**
+### 9.2 Hardware
 
 - Rigid custom 3D-printed chassis to reduce flex and improve steering precision.
 - Higher-torque motors for more consistent parking.
