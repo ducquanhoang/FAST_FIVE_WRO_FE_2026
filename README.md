@@ -5,8 +5,8 @@
 ### Our team
 | Photo | Member Name     | Role & Experience |
 | ----- | --------------- | ----------------- |
-|<img src="t-photos/tuyen1.jpg" width="200">| Nguyễn Tự Tuyển |Responsible for documenting the team's development process and photography|
-| ...   | Hoàng Đức Quân  | ...               |
+|<img src="t-photos/tuyen1.jpg" width="200">| Nguyễn Tự Tuyển | Responsible for documenting the team's development process and photography |
+|<img src="t-photos/20260908_160004.jpg" width="300">| Hoàng Đức Quân  | Documenting part of the team's development, designing, building and programming the robot |
 
 ## Table of Contents
 - [1. Overview](#1-overview)
